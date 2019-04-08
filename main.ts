@@ -1,5 +1,5 @@
 let CountM1 = 0
-let CountM3 = 0
+let CountM2 = 0
 
 
 basic.showLeds(`
@@ -19,9 +19,9 @@ input.onButtonPressed(Button.A, function () {
     . . # . .
     `)
     CountM1 = 0
-    CountM3 = 0
+    CountM2 = 0
     motor.MotorRun(motor.Motors.M1, motor.Dir.CW, 255)
-    motor.MotorRun(motor.Motors.M3, motor.Dir.CCW, 255)
+    motor.MotorRun(motor.Motors.M2, motor.Dir.CCW, 255)
     basic.pause(2000)
     basic.showLeds(`
     . . # . .
@@ -31,18 +31,20 @@ input.onButtonPressed(Button.A, function () {
     . . # . .
     `)
     motor.MotorRun(motor.Motors.M1, motor.Dir.CCW, 255)
-    motor.MotorRun(motor.Motors.M3, motor.Dir.CW, 255)
+    motor.MotorRun(motor.Motors.M2, motor.Dir.CW, 255)
     basic.pause(2000)
+
+    basic.showIcon(IconNames.Skull)
     motor.MotorRun(motor.Motors.M1, motor.Dir.CW, 255)
-    motor.MotorRun(motor.Motors.M3, motor.Dir.CW, 255)
+    motor.MotorRun(motor.Motors.M2, motor.Dir.CW, 255)
     basic.pause(2000)
     motor.motorStopAll()
     basic.showIcon(IconNames.Asleep)
     basic.showString("M1=")
     basic.showNumber(CountM1)
     basic.pause(1000)
-    basic.showString("M3=")
-    basic.showNumber(CountM3)
+    basic.showString("M2=")
+    basic.showNumber(CountM2)
 })
 
 input.onPinPressed(TouchPin.P0, function () {
@@ -50,5 +52,5 @@ input.onPinPressed(TouchPin.P0, function () {
 })
 
 input.onPinPressed(TouchPin.P1, function () {
-    CountM3 += 1
+    CountM2 += 1
 })
