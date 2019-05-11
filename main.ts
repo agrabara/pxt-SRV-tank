@@ -132,22 +132,25 @@ else if (input.buttonIsPressed(Button.B)) RadioCh = INIT_GROUP + 20
 radio.setGroup(RadioCh)
 basic.showString("CH=" + RadioCh)
 
-// show demo
-/*CmdSetSpeed(255)
-CmdDspIcon(IconNames.Asleep)
-CmdForward(ON, 2000, -255, 255)
-basic.pause(2000)
-CmdDspIcon(IconNames.Giraffe)
-CmdForward(ON, 2000, 255, -255)
-basic.pause(2000)
-CmdDspIcon(IconNames.Ghost)
-CmdForward(ON, 2000, 255, 255)
-basic.pause(2000)
-CmdDspIcon(IconNames.EigthNote)
-CmdForward(ON, 2000, -255, -255)
-basic.pause(2000)
-CmdDspIcon(0)
-*/
+if (input.buttonIsPressed(Button.AB)) {
+    // show demo
+    while (1) {
+        CmdSetSpeed(255)
+        CmdDspIcon(IconNames.Asleep)
+        CmdForward(ON, 2000, -255, 255)
+        basic.pause(2000)
+        CmdDspIcon(IconNames.Giraffe)
+        CmdForward(ON, 2000, 255, -255)
+        basic.pause(2000)
+        CmdDspIcon(IconNames.Ghost)
+        CmdForward(ON, 2000, 255, 255)
+        basic.pause(2000)
+        CmdDspIcon(IconNames.EigthNote)
+        CmdForward(ON, 2000, -255, -255)
+        basic.pause(2000)
+        CmdDspIcon(0)
+    }
+}
 
 input.onButtonPressed(Button.AB, function () {
     DebugMode = !DebugMode
