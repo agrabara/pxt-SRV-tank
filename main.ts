@@ -134,22 +134,31 @@ basic.showString("CH=" + RadioCh)
 
 if (input.buttonIsPressed(Button.AB)) {
     // show demo
+    let szybko = 100
+    music.playTone(Note.C, 100)
+    basic.showString("Demo")
     while (1) {
-        CmdSetSpeed(255)
-        CmdDspIcon(IconNames.Asleep)
-        CmdForward(ON, 2000, -255, 255)
-        basic.pause(2000)
+        CmdSetSpeed(100)
+        /*CmdDspIcon(IconNames.Asleep)
+        CmdForward(ON, 1000, -szybko, szybko)
         CmdDspIcon(IconNames.Giraffe)
-        CmdForward(ON, 2000, 255, -255)
-        basic.pause(2000)
+        CmdForward(ON, 1000, szybko, -szybko)
         CmdDspIcon(IconNames.Ghost)
-        CmdForward(ON, 2000, 255, 255)
-        basic.pause(2000)
+        CmdForward(ON, 1000, szybko, 0)
         CmdDspIcon(IconNames.EigthNote)
-        CmdForward(ON, 2000, -255, -255)
-        basic.pause(2000)
-        CmdDspIcon(0)
+        CmdForward(ON, 1000, 0, -szybko)
+        CmdDspIcon(0)*/
+        doPrzodRozp(255, 20)
     }
+}
+
+
+function doPrzodRozp(Speed: number, jakDlugo: number) {
+    basic.showArrow(ArrowNames.North)
+    for (let index = 0; index < Speed; index++) {
+        CmdForward(ON, jakDlugo, index, -index)
+    }
+    basic.showIcon(IconNames.Asleep)
 }
 
 input.onButtonPressed(Button.AB, function () {
