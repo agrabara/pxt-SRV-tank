@@ -148,18 +148,32 @@ if (input.buttonIsPressed(Button.AB)) {
         CmdDspIcon(IconNames.EigthNote)
         CmdForward(ON, 1000, 0, -szybko)
         CmdDspIcon(0)*/
-        doPrzodRozp(255, 20)
+        //doPrzodRozp(255, 20)
     }
 }
 
+//doPrzodRozp(50, 255, 10)
 
-function doPrzodRozp(Speed: number, jakDlugo: number) {
+
+function doPrzodRozp(SpeedS: number, SpeedE: number, jakDlugo: number) {
     basic.showArrow(ArrowNames.North)
-    for (let index = 0; index < Speed; index++) {
+    for (let index = SpeedS; index < SpeedE; index = index + 2) {
         CmdForward(ON, jakDlugo, index, -index)
+        basic.pause(jakDlugo)
     }
     basic.showIcon(IconNames.Asleep)
 }
+
+function doTyluRozp(SpeedS: number, SpeedE: number, jakDlugo: number) {
+    basic.showArrow(ArrowNames.North)
+    for (let index = SpeedS; index < SpeedE; index = index + 2) {
+        CmdForward(ON, jakDlugo, -index, index)
+        basic.pause(jakDlugo)
+    }
+    basic.showIcon(IconNames.Asleep)
+}
+
+
 
 input.onButtonPressed(Button.AB, function () {
     DebugMode = !DebugMode
@@ -180,7 +194,84 @@ input.onButtonPressed(Button.B, function () {
         RobotImp.Init()
         basic.clearScreen()
     }
+    basic.showArrow(ArrowNames.North)
+    CmdFwd(ON, 1000, 100)
+    basic.pause(2000)
+    basic.showArrow(ArrowNames.South)
+    CmdBck(ON, 1000, 100)
+    basic.pause(2000)
+    basic.showArrow(ArrowNames.North)
+    CmdFwd(ON, 1000, 255)
+    basic.pause(2000)
+    basic.showArrow(ArrowNames.South)
+    CmdBck(ON, 1000, 255)
+    basic.pause(2000)
+    basic.showIcon(IconNames.Asleep)
 })
+
+
+
+//speed must be >50
+function CmdFwd(On: boolean, Duration: number, Speed: number) {
+    let ls = 50
+    let la = (Speed - 50) / 50
+    if (On) {
+        for (let index = 1; index < 50; index++) {
+            RobotImp.MotorLeft(ls)
+            RobotImp.MotorRight(-ls)
+            ls += la
+            basic.pause(10)
+        }
+        LastCmd = CMD_FWD
+        LastCmdTime = input.runningTime()
+        MotorOffTime = LastCmdTime + Duration - 500
+        RobotImp.MotorLeft(Speed)
+        RobotImp.MotorRight(-Speed)
+
+    } else {
+        for (let index = 1; index < 50; index++) {
+            RobotImp.MotorLeft(ls)
+            RobotImp.MotorRight(-ls)
+            ls += la
+            basic.pause(10)
+        }
+        RobotImp.MotorLeft(Speed)
+        RobotImp.MotorRight(-Speed)
+        MotorOffTime = 0
+    }
+}
+
+//speed must be >50
+function CmdBck(On: boolean, Duration: number, Speed: number) {
+    let ls = 50
+    let la = (Speed - 50) / 50
+    if (On) {
+        for (let index = 1; index < 50; index++) {
+            RobotImp.MotorLeft(-ls)
+            RobotImp.MotorRight(ls)
+            ls += la
+            basic.pause(10)
+        }
+        LastCmd = CMD_FWD
+        LastCmdTime = input.runningTime()
+        MotorOffTime = LastCmdTime + Duration - 500
+        RobotImp.MotorLeft(-Speed)
+        RobotImp.MotorRight(Speed)
+
+    } else {
+        for (let index = 1; index < 50; index++) {
+            RobotImp.MotorLeft(-ls)
+            RobotImp.MotorRight(ls)
+            ls += la
+            basic.pause(10)
+        }
+        RobotImp.MotorLeft(-Speed)
+        RobotImp.MotorRight(Speed)
+        MotorOffTime = 0
+    }
+}
+
+
 
 function CmdForward(On: boolean, Duration: number, SpeedL: number, SpeedR: number) {
     if (On) {
